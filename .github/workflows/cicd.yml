@@ -28,7 +28,8 @@ jobs:
       - name: Delete old container
         run: docker rm -f || true
       - name: Run docker container 
-        run: docker run -d -p 8080:8080 --name go-app-container \
+        run: |
+          docker run -d -p 8080:8080 --name go-app-container \
           -e APP_NAME=pttep-vr \
           -e APP_ENVIRONMENT=production \
           -e APP_HOST=0.0.0.0 \
