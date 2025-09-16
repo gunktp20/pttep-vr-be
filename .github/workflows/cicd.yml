@@ -23,6 +23,12 @@ jobs:
     needs: build
     runs-on: self-hosted
     steps:
+      - name: Clean up Docker resources before deployment
+        run: |
+          docker container prune -f
+          docker image prune -f
+          docker volume prune -f
+          docker builder prune -f
       - name: Pull docker image 
         run: docker pull gunktp20/pttep-vr-be:latest
       - name: Delete old container
@@ -41,3 +47,7 @@ jobs:
           -e DB_USERNAME=${{ secrets.DB_USERNAME }} \
           -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
           gunktp20/pttep-vr-be:latest 
+      
+      - name: Remove old images after deployment
+        run: |
+          docker images gunktp20/pttep-vr-be --format "table {{.Repository}}\t{{.Tag}}\t{{.ID}}" | grep -v latest | awk 'NR>1{print $3}' | xargs -r docker rmi || true
