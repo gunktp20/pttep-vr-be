@@ -3,15 +3,12 @@ FROM golang:1.23-alpine
 WORKDIR /app
 
 COPY go.mod go.sum ./
+RUN go mod download
 
-RUN go mod tidy 
+COPY . .
 
-COPY . . 
+RUN go build -o main .
 
-RUN go build -o main ./main.go
-
-RUN chmod +x main
-
-EXPOSE 8080 
+EXPOSE 8080
 
 CMD ["./main"]
