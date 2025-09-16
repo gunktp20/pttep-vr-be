@@ -8,5 +8,5 @@ import (
 func main() {
 	fmt.Println("Starting server")
 	server.Run()
-	fmt.Println("Server stopped")
+	fmt.Println("PTTEP VR BE Server stopped")
 }
