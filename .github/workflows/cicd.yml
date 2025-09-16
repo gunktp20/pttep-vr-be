@@ -16,16 +16,16 @@ jobs:
       - name: Login to docker hub 
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Build docker image 
-        run: docker build -t gunktp20/pttep-vr-be
+        run: docker build -t gunktp20/pttep-vr-be .
       - name: Push image to docker hub 
         run: docker push gunktp20/pttep-vr-be:latest
   deploy:
     needs: build
-    runs-on: build
+    runs-on: self-hosted
     steps:
       - name: Pull docker image 
         run: docker pull gunktp20/pttep-vr-be:latest
       - name: Delete old container
-        run: docker rm -f
+        run: docker rm -f || true
       - name: Run docker container 
-        run: docker run -d -p 8080:8080 -name go-app-container gunktp20/pttep-vr-be
+        run: docker run -d -p 8080:8080 --name go-app-container gunktp20/pttep-vr-be:latest
