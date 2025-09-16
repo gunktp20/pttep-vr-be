@@ -44,7 +44,6 @@ func (c *Client) GetDB() *gorm.DB {
 func (c *Client) Connect(dlt Dialector) error {
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Local",
 		c.config.username, c.config.password, c.config.host, c.config.port, c.config.name)
-
 	var err error
 	c.client, err = gorm.Open(dlt(dsn), &gorm.Config{})
 	if err != nil {
