@@ -1,0 +1,20 @@
+app:
+  name: ${APP_NAME}
+  version: "v0.0.1"
+  state: ${APP_ENVIRONMENT}
+  timezone: "Asia/Bangkok"
+  config:
+    host: ${APP_HOST}
+    port: ${APP_PORT}
+    path: ${APP_PATH_ROOT}
+    allows:
+      origins:
+        - "*"
+      response:
+        error: false
+database:
+  host: ${DB_HOST}
+  port: ${DB_PORT}
+  name: ${DB_NAME}
+  username: ${DB_USERNAME}
+  password: ${DB_PASSWORD}
