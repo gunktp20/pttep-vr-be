@@ -28,4 +28,15 @@ jobs:
       - name: Delete old container
         run: docker rm -f || true
       - name: Run docker container 
-        run: docker run -d -p 8080:8080 --name go-app-container gunktp20/pttep-vr-be:latest
+        run: docker run -d -p 8080:8080 --name go-app-container \
+          -e APP_NAME=pttep-vr \
+          -e APP_ENVIRONMENT=production \
+          -e APP_HOST=0.0.0.0 \
+          -e APP_PORT=8080 \
+          -e APP_PATH_ROOT=/app \
+          -e DB_HOST=${{ secrets.DB_HOST }} \
+          -e DB_PORT=${{ secrets.DB_PORT }} \
+          -e DB_NAME=${{ secrets.DB_NAME }} \
+          -e DB_USERNAME=${{ secrets.DB_USERNAME }} \
+          -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
+          gunktp20/pttep-vr-be:latest 
